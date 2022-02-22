@@ -4,7 +4,7 @@
 class Tv
 {
 public:
-    friend class Remote;   // Remote can access Tv private parts
+    friend class Remote;   
     enum {Off, On};
     enum {MinVal,MaxVal = 20};
     enum {Antenna, Cable};
@@ -20,20 +20,20 @@ public:
     void chandown();
     void set_mode() {mode = (mode == Antenna)? Cable : Antenna;}
     void set_input() {input = (input == TV)? DVD : TV;}
-    void settings() const; // display all settings
+    void settings() const; 
 private:
-    int state;             // on or off
-    int volume;            // assumed to be digitized
-    int maxchannel;        // maximum number of channels
-    int channel;           // current channel setting
-    int mode;              // broadcast or cable
-    int input;             // TV or DVD
+    int state;             
+    int volume;            
+    int maxchannel;        
+    int channel;           
+    int mode;              
+    int input;             
 };
 
 class Remote
 {
 private:
-    int mode;              // controls TV or DVD
+    int mode;              
 public:
     Remote(int m = Tv::TV) : mode(m) {}
     bool volup(Tv & t) { return t.volup();}
