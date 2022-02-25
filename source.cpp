@@ -1,27 +1,27 @@
 #include</home/bobs/Prata/Header.h> 
 #include<iostream>
+#include<string>
 
 int main() 
  {
+	 using std::string;
+	 using std::cin;
 	 using std::cout;
-	 Tv s42;
-	 cout << "Initial setting for 42\" TV:\n";
-	 s42.settings();
-	 s42.onoff();
-	 s42.chanup();
-	 cout << "\nAjusted setting for 42\" TV:\n";
-	 s42.settings();
-
-	 Remote grey;
-	 grey.set_chan(s42, 10);
-	 grey.volup(s42);
-	 grey.volup(s42);
-	 cout << "\n42\" settings after using remote:\n";
-	 s42.settings();
-	 Tv s58(Tv::On);
-	 s58.set_mode();
-	 grey.set_chan(s58, 28);
-	 cout << "\n58\" settings:\n";
-	 s58.settings();
+	 QueueTP<string> cs(5);
+	 string temp;
+	while (!cs.isfull())
+	{
+		cout << "Please enter your name. You will be"
+				"served in the order of arrival.\n"
+				"name: ";
+		getline(cin, temp);
+		cs.enqueue(temp);
+	}
+	while (!cs.isempty())
+	{
+		cs.dequeue(temp);
+		cout << "Now processing " << temp << "...\n";
+	}
+	cout << "The queue is full. Processing begins!\n";
 	 return 0;
  }
