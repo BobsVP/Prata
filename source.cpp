@@ -1,74 +1,67 @@
+//#include</home/bobs/Prata/Header.h> 
 #include<iostream>
-#include</home/bobs/Prata/Header.h> 
+#include<cstdlib>
+#include<ctime>
+
+using std::cout;
+
+class Grand
+{
+private:
+	int hold;
+public:
+	Grand(int h = 0) : hold(h) {}
+	virtual void Speak() const {cout << "I am a Grand class!\n";}
+	virtual int Value() const {return hold;}
+};
+
+class Superb : public Grand
+{
+public:
+	Superb(int h = 0):Grand(h) {}
+	void Speak() const {cout << "I am a Superb class!\n";}
+	virtual void Say() const {cout << "I hold the Superb value of " << Value() << "!\n";}
+};
+
+class Magnificent : public Superb
+{
+private:
+	char ch;
+public:
+	Magnificent(int h = 0, char c = 'A'):Superb(h), ch(c) {}
+	void Speak() const {cout << "I am a Magnificent class!\n";}
+	virtual void Say() const {cout << "I hold the character " << ch << " and the integer " << Value() << "!\n";}
+};
+
+Grand* GetOne();
 
 int main()  
 {
-	using std::cout;
-	using std::cin;
-	using std::endl;
-	double vals1[12] = 
+	std::srand(std::time(0));
+	Grand* pg;
+	Superb* ps;
+	for (int i = 0; i < 5; ++i)
 	{
-		1220, 1100, 1122, 2212, 1232, 2334,
-		2884, 2393, 3302, 2922, 3002, 3544
-	};
-	double vals2[12] = 
-	{
-		12, 11, 22, 21, 32, 34,
-		28, 29, 33, 29, 32, 35
-	};
-	Sales sales1(2011, vals1, 12);
-	LabeledSales sales2("Blogstar", 2012, vals2, 12);
-	cout << "First try block:\n";
-	try
-	{
-		int i;
-		cout << "Year = " << sales1.Year() << endl;
-		for (i = 0; i < 12; ++i)
-		{
-			cout << sales1[i] << ' ';
-			if ((i % 6) == 5)
-			cout << endl;
-		}
-		cout << "Year = " << sales2.Year() << endl;
-		cout << "Label = " << sales2.Label() << endl;
-		for (i = 0; i < 12; ++i)
-		{
-			cout << sales2[i] << ' ';
-			if ((i % 6) == 5)
-			cout << endl;
-		}
-		cout << "End of try block 1.\n";
+		pg = GetOne();
+		pg->Speak();
+		if (ps = dynamic_cast<Superb*>(pg))
+			ps->Say();
 	}
-	catch(LabeledSales::nbad_index& bad)
-	{
-		std::cout << bad.what();
-		std::cout << "Company: " << bad.label_val() << endl;
-		std::cout << "bad index: " << bad.bi_val() << endl;
-	}
-	catch(Sales::bad_index& bad)
-	{
-		std::cout << bad.what();
-		std::cout << "bad index: " << bad.bi_val() << endl;
-	}
-	cout << "\nNext try block:\n";
-	try
-	{
-		sales2[2] = 37.5;
-		sales1[20] = 23345;
-		cout << "End of try block 2.\n";
-	}
-	catch(LabeledSales::nbad_index& bad)
-	{
-		std::cout << bad.what();
-		std::cout << "Company: " << bad.label_val() << endl;
-		std::cout << "bad index: " << bad.bi_val() << endl;
-	}
-	catch(Sales::bad_index& bad)
-	{
-		std::cout << bad.what();
-		std::cout << "bad index: " << bad.bi_val() << endl;
-	}
-	cout << "Done.\n";
+	
 	return 0;
  }
 
+Grand* GetOne()
+{
+	Grand* p;
+	switch (std::rand() % 3)
+	{
+	case 0: p = new Grand(std::rand() % 100);
+		break;
+	case 1: p = new Superb(std::rand() % 100);
+		break;
+	case 2: p = new Magnificent(std::rand() % 100, 'A' + std::rand()% 26);
+		break;
+	}
+	return p;
+}
