@@ -30,7 +30,7 @@ private:
 public:
 	Magnificent(int h = 0, char c = 'A'):Superb(h), ch(c) {}
 	void Speak() const {cout << "I am a Magnificent class!\n";}
-	virtual void Say() const {cout << "I hold the character " << ch << " and the integer " << Value() << "!\n";}
+	void Say() const {cout << "I hold the character " << ch << " and the integer " << Value() << "!\n";}
 };
 
 Grand* GetOne();
@@ -43,9 +43,12 @@ int main()
 	for (int i = 0; i < 5; ++i)
 	{
 		pg = GetOne();
+		cout << "Now processing tipe " << typeid(*pg).name() << "!\n";
 		pg->Speak();
 		if (ps = dynamic_cast<Superb*>(pg))
 			ps->Say();
+		if (typeid(Magnificent) == typeid(*pg))
+			cout << "Yes, you're really magnificent.\n";
 	}
 	
 	return 0;
