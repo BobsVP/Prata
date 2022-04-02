@@ -1,25 +1,32 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
-
-using std::cout; 
-using std::endl; 
-
-void change(const int* pt, int n);
+#include<string>
 
 int main()  
 {
-	int pop1 = 38383;
-	const int pop2 = 2000;
-	cout << "pop1, pop2: " << pop1 << ", " << pop2 << endl;
-	change(&pop1, -103);
-	change(&pop2, -103);
-	cout << "pop1, pop2: " << pop1 << ", " << pop2 << endl;
+	using namespace std;
+	string one("Lottery winner");
+	cout << one << endl;
+	string two(20, '$');
+	cout << two << endl;
+	string three(one);
+	cout << three << endl;
+	one += " Ooops!";
+	cout << one << endl;
+	two = "Sorry! That was ";
+	three[0] = 'P';
+	string four;
+	four = two + three;
+	cout << four << endl;
+	char alls[] = "All's well that ends well";
+	string five(alls, 20);
+	cout << five << "!\n";
+	string six(alls + 6, alls + 10); 
+	cout << six << ", ";
+	string seven(&five[6], five[10]);
+	cout << seven << "...\n";
+	string eight(four, 7, 16);
+	cout << eight << " in motion!" << endl;
 	return 0;
 }
 
-void change(const int* pt, int n)
-{
-	int* pc;
-	pc = const_cast<int*>(pt);
-	*pc += n;
-}
