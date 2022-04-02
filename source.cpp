@@ -23,7 +23,7 @@ int main()
 	cout << five << "!\n";
 	string six(alls + 6, alls + 10); 
 	cout << six << ", ";
-	string seven(&five[6], five[10]);
+	string seven(&five[6], &five[10]);
 	cout << seven << "...\n";
 	string eight(four, 7, 16);
 	cout << eight << " in motion!" << endl;
