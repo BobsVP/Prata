@@ -3,31 +3,25 @@
 #include<string>
 #include<memory>
 
-class Report
-{
-private:
-	std::string str;
-public:
-	Report(const std::string s) : str(s) 
-	{ std::cout << "Object created!\n";}
-	~Report() { std::cout << "Object deleted!\n";}
-	void comment() const { std::cout << str << std::endl; }
-};
-
 int main()  
 {
+	using namespace std;
+	auto_ptr<string> films[5] = 
 	{
-		std::auto_ptr<Report> ps(new Report("using auto_ptr"));
-		ps->comment();
-	}
+		auto_ptr<string> (new string("Fowl Balls")),
+		auto_ptr<string> (new string("Duck Walks")),
+		auto_ptr<string> (new string("Chicken Runs")),
+		auto_ptr<string> (new string("Turkey Errors")),
+		auto_ptr<string> (new string("Goose Eggs"))
+	};
+	auto_ptr<string> pwin;
+	pwin = films[2];
+	cout << "The nominees for best avian baseball folm are\n";
+	for (int i = 0; i < 5; i++)
 	{
-		std::shared_ptr<Report> ps(new Report("using shared_ptr"));
-		ps->comment();
+		cout << *films[i] << endl;
 	}
-	{
-		std::unique_ptr<Report> ps(new Report("using unique_ptr"));
-		ps->comment();
-	}
+	cout << "The winner is " << *pwin << endl;
 	return 0;
 }
 
