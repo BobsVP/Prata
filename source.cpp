@@ -1,24 +1,33 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
 #include<string>
+#include<memory>
+
+class Report
+{
+private:
+	std::string str;
+public:
+	Report(const std::string s) : str(s) 
+	{ std::cout << "Object created!\n";}
+	~Report() { std::cout << "Object deleted!\n";}
+	void comment() const { std::cout << str << std::endl; }
+};
 
 int main()  
 {
-	using namespace std;
-	string empty;
-	string small = "bit";
-	string larger = "Elephants are а girl's best friend";
-	cout << "Sizes:\n";
-	cout << "\tempty: " << empty.size() << endl;
-	cout << "\tsmall: " << small.size() << endl;
-	cout << "\tlarger: " << larger.size() << endl;
-	cout << "Capasities:\n";
-	cout << "\tempty: " << empty.capacity() << endl;
-	cout << "\tsmall: " << small.capacity() << endl;
-	cout << "\tlarger: " << larger.capacity() << endl;
-	empty.reserve(50);
-	cout << "Capasity after empty.reserve(50): "
-		<< empty.capacity() << endl;
+	{
+		std::auto_ptr<Report> ps(new Report("using auto_ptr"));
+		ps->comment();
+	}
+	{
+		std::shared_ptr<Report> ps(new Report("using shared_ptr"));
+		ps->comment();
+	}
+	{
+		std::unique_ptr<Report> ps(new Report("using unique_ptr"));
+		ps->comment();
+	}
 	return 0;
 }
 
