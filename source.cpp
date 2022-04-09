@@ -1,27 +1,32 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
 #include<string>
-#include<memory>
+#include<vector>
+
+const int NUM = 5;
 
 int main()  
 {
-	using namespace std;
-	shared_ptr<string> films[5] = 
+	using std::vector;
+	using std::string;
+	using std::cout;
+	using std::cin;
+	using std::endl;
+	vector<int> Rating(NUM);
+	vector<string> titles(NUM);
+	cout << "You will do exactly as told. You will enter\n" << NUM << " book titles and your ratings (0-10).\n";
+	int i;
+	for (i = 0; i < NUM; i++)
 	{
-		shared_ptr<string> (new string("Fowl Balls")),
-		shared_ptr<string> (new string("Duck Walks")),
-		shared_ptr<string> (new string("Chicken Runs")),
-		shared_ptr<string> (new string("Turkey Errors")),
-		shared_ptr<string> (new string("Goose Eggs"))
-	};
-	shared_ptr<string> pwin;
-	pwin = films[2];
-	cout << "The nominees for best avian baseball folm are\n";
-	for (int i = 0; i < 5; i++)
-	{
-		cout << *films[i] << endl;
+		cout << "Enter title #" << i + 1 << ": ";
+		getline(cin, titles[i], '\n');
+		cout << "Enter your rating(0-10): ";
+		cin >> Rating[i];
+		cin.get();
 	}
-	cout << "The winner is " << *pwin << "!\n";
+	cout << "Thank you. You entring the following:\n" << "Rating\tBook\n";
+	for (i = 0; i < NUM; i++)
+		cout << Rating[i] << "\t" << titles[i] << endl;
 	return 0;
 }
 
