@@ -2,6 +2,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include<algorithm>
 
 struct Review
 {
@@ -9,48 +10,56 @@ struct Review
 	int rating;
 };
 
+bool operator<(const Review& r1, const Review& r2);
+bool worseThan(const Review& r1, const Review& r2);
 bool FillReview(Review& rr);
 void ShowReview(const Review& rr);
 
 int main()  
 {
-	using std::vector;
-	using std::cout;
+	using namespace std;
 	vector<Review> books;
 	Review temp;
 	while (FillReview(temp))
 		books.push_back(temp);
-	int num = books.size();
-	if (num > 0)
+	if (books.size() > 0)
 	{
-		cout << "Thank you. You entering the following:\n" << "Rating\tBook\n";
-		for (int i = 0; i < num; i++)
-			ShowReview(books[i]);
-		cout << "Reprising:\n" << "Rating\tBook\n";
+		cout << "Thank you. You entering the following " << books.size() << " ratings:\n" << "Rating\tBook\n";
+		for_each(books.begin(), books.end(), ShowReview);
+		sort(books.begin(), books.end());
+		cout << "Sorted by title:\n" << "Rating\tBook\n";
+		for_each(books.begin(), books.end(), ShowReview);
+		sort(books.begin(), books.end(), worseThan);
+		cout << "Sorted by rating:\n" << "Rating\tBook\n";
+		for_each(books.begin(), books.end(), ShowReview);
 		vector<Review>::iterator pr;
-		for (pr = books.begin(); pr != books.end(); pr++)
-			ShowReview(*pr);
-		vector<Review> oldlist(books);
-		if (num > 3)
-		{
-			books.erase(books.begin() + 1, books.begin() + 3);
-			cout << "After erasure:\n";
-			for (pr = books.begin(); pr != books.end(); pr++)
-				ShowReview(*pr);
-			books.insert(books.begin(), oldlist.begin() + 1, oldlist.begin() + 2);
-			cout << "After insertion:\n";
-			for (pr = books.begin(); pr != books.end(); pr++)
-				ShowReview(*pr);
-		}
-		books.swap(oldlist);
-		cout << "Swapping oldlist with books:\n";
-		for (pr = books.begin(); pr != books.end(); pr++)
-			ShowReview(*pr);
+		random_shuffle(books.begin(), books.end());
+		cout << "After snuffling:\n" << "Rating\tBook\n";
+		for_each(books.begin(), books.end(), ShowReview);
 	}
 	else
-		cout << "Nothing entered, nothing gained.\n";
+		cout << "No entries. ";
+	cout << "Bye!\n";
 	return 0;
 }
+
+bool operator<(const Review& r1, const Review& r2)
+{
+	if(r1.title < r2.title)
+		return true;
+	else if (r1.title == r2.title && r1.rating < r2.rating)
+		return true;
+	else	
+		return false;
+}
+bool worseThan(const Review& r1, const Review& r2)
+{
+	if (r1.rating < r2.rating)
+		return true;
+	else	
+		return false;
+}
+
 
 bool FillReview(Review& rr)
 {
