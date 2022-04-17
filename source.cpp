@@ -1,25 +1,27 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
+#include<string>
 #include<iterator>
 #include<vector>
+#include<algorithm>
+
+void output(const std::string& s) { std::cout << s << " "; }
 
 int main()  
 {
 	using namespace std;
-	int casts[10] = {6, 7, 2, 9, 4, 11, 8, 7, 10, 5};
-	vector<int> dice(10);
-	copy(begin(casts), end(casts), dice.begin());
-	cout << "Let the dice be cast!\n";
-	ostream_iterator<int, char> out_iter(cout, " ");
-	copy(dice.begin(), dice.end(), out_iter);
+	string s1[4] = {"fine", "fish", "fashion", "fate"};
+	string s2[2] = {"busy", "bats"};
+	string s3[2] = {"silly", "singers"};
+	vector<string> words(4);
+	copy(s1, s1 + 4, words.begin());
+	for_each(words.begin(), words.end(), output);
 	cout << endl;
-	cout << "Implicit use of reverse iterator.\n";
-	copy(dice.rbegin(), dice.rend(), out_iter);
+	copy(s2, s2 + 2, back_insert_iterator<vector<string>>(words));
+	for_each(words.begin(), words.end(), output);
 	cout << endl;
-	cout << "Explicit use of reverse iterator.\n";
-	vector<int>::reverse_iterator ri;
-	for (ri = dice.rbegin(); ri != dice.rend(); ++ri)
-		cout << *ri << ' ';
+	copy(s3, s3 + 2, insert_iterator<vector<string>>(words, words.begin()));
+	for_each(words.begin(), words.end(), output);
 	cout << endl;
 	return 0;
 }
