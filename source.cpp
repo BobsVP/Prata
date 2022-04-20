@@ -1,10 +1,9 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
-#include<list>
+#include<string>
+#include<set>
 #include<iterator>
 #include<algorithm>
-
-void outint(int n) { std::cout << n << " "; }
 
 int main()  
 {
