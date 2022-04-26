@@ -1,43 +1,43 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
-#include<list>
+#include<vector>
 #include<iterator>
 #include<algorithm>
+#include<functional>
 
-template<typename T>
-class TooBig
-{
-private:
-	T cutoff;
-public:
-	TooBig(const T& t):cutoff(t) {};
-	bool operator()(const T& v) { return v > cutoff; }
-};
-
-void outint(int n) {std::cout << n << " ";}
+void Show(double);
+const int LIM = 6;
 
 int main()  
 {
-	using std::list;
-	using std::cout;
-	using std::endl;
-	TooBig<int> f100(100);
-	int vals[10] = {50, 100, 90, 180, 60, 210, 415, 88, 188, 201};
-	list<int> yadayada(vals, vals + 10);
-	list<int> etcetera(vals, vals + 10);
-	cout << "Original list:\n";
-	for_each(yadayada.begin(), yadayada.end(), outint);
-	cout << endl;
-	for_each(etcetera.begin(), etcetera.end(), outint);
-	cout << endl;
-	yadayada.remove_if(f100);
-	etcetera.remove_if(TooBig<int>(200));
-	yadayada.sort();
-	etcetera.sort();
-	for_each(yadayada.begin(), yadayada.end(), outint);
-	cout << endl;
-	for_each(etcetera.begin(), etcetera.end(), outint);
-	cout << endl;
+	//using namespace std;
+	double arr1[LIM] = {28, 29, 30, 35, 38, 59};
+	double arr2[LIM] = {63, 65, 69, 75, 80, 99};
+	std::vector<double> gr8(arr1, arr1 + LIM);
+	std::vector<double> m8(arr2, arr2 + LIM);
+	std::cout.setf(std::ios_base::fixed);
+	std::cout.precision(1);
+	std::cout << "gr8:\t";
+	std::for_each(gr8.begin(), gr8.end(), Show);
+	std::cout << std::endl;
+	std::cout << "m8:\t";
+	std::for_each(m8.begin(), m8.end(), Show);
+	std::cout << std::endl;
+	std::vector<double> sum(LIM);
+	std::transform(gr8.begin(), gr8.end(), m8.begin(), sum.begin(), std::plus<double>());
+	std::cout << "sum:\t";
+	std::for_each(sum.begin(), sum.end(), Show);
+	std::cout << std::endl;
+	std::vector<double> prod(LIM);
+	std::transform(gr8.begin(), gr8.end(), prod.begin(), std::bind1st(std::multiplies<double>(), 2.5));
+	std::cout << "prod:\t";
+	std::for_each(prod.begin(), prod.end(), Show);
+	std::cout << std::endl;
 	return 0;
 }
 
+void Show(double v)
+{
+	std::cout.width(6);
+	std::cout << v << ' ';
+}
