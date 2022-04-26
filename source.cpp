@@ -1,43 +1,22 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
-#include<vector>
-#include<iterator>
+#include<string>
 #include<algorithm>
-#include<functional>
-
-void Show(double);
-const int LIM = 6;
 
 int main()  
 {
 	//using namespace std;
-	double arr1[LIM] = {28, 29, 30, 35, 38, 59};
-	double arr2[LIM] = {63, 65, 69, 75, 80, 99};
-	std::vector<double> gr8(arr1, arr1 + LIM);
-	std::vector<double> m8(arr2, arr2 + LIM);
-	std::cout.setf(std::ios_base::fixed);
-	std::cout.precision(1);
-	std::cout << "gr8:\t";
-	std::for_each(gr8.begin(), gr8.end(), Show);
-	std::cout << std::endl;
-	std::cout << "m8:\t";
-	std::for_each(m8.begin(), m8.end(), Show);
-	std::cout << std::endl;
-	std::vector<double> sum(LIM);
-	std::transform(gr8.begin(), gr8.end(), m8.begin(), sum.begin(), std::plus<double>());
-	std::cout << "sum:\t";
-	std::for_each(sum.begin(), sum.end(), Show);
-	std::cout << std::endl;
-	std::vector<double> prod(LIM);
-	std::transform(gr8.begin(), gr8.end(), prod.begin(), std::bind1st(std::multiplies<double>(), 2.5));
-	std::cout << "prod:\t";
-	std::for_each(prod.begin(), prod.end(), Show);
-	std::cout << std::endl;
+	std::string letters;
+	std::cout << "Enter the letter grouping (quit to quit): ";
+	while (std::cin >> letters && letters != "quit")
+	{
+		std::cout << "Permutations of " << letters << std::endl;
+		sort(letters.begin(), letters.end());
+		std::cout << letters << std::endl;
+		while (std::next_permutation(letters.begin(), letters.end()))
+			std::cout << letters << std::endl;
+		std::cout << "Enter next sequence (quit to quit): ";
+	}
+	std::cout << "Done.\n";
 	return 0;
-}
-
-void Show(double v)
-{
-	std::cout.width(6);
-	std::cout << v << ' ';
 }
