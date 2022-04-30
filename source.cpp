@@ -1,40 +1,49 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
-#include<list>
+#include<string>
+#include<vector>
+#include<set>
+#include<map>
+#include<iterator>
 #include<algorithm>
+#include<cctype>
 
-void Show(int);
-const int LIM = 10;
+char toLower(char ch) {return tolower(ch);}
+std::string& ToLower(std::string& st);
+void display(const std::string& s);
 
 int main()  
 {
 	//using namespace std;
-	int ar[LIM] = {4, 5, 4, 2, 2, 3, 4, 8, 1, 4};
-	std::list<int> la(ar, ar + LIM);
-	std::list<int> lb(la);
-	std::cout << "Original list content:\n\t";
-	std::for_each(la.begin(), la.end(), Show);
+	std::vector<std::string> words;
+	std::cout << "Enter words (enter quit to quit):\n";
+	std::string input;
+	while (std::cin >> input && input != "quit")
+		words.push_back(input);
+	std::cout << "You entered the following words:\n";
+	std::for_each(words.begin(), words.end(), display);
+	std::cout << "\n";
+	std::set<std::string> wordset;
+	std::transform(words.begin(), words.end(), std::insert_iterator<std::set<std::string>>(wordset, wordset.begin()), ToLower);
+	std::cout << "\nAlphabetic list of words:\n";
+	std::for_each(wordset.begin(), wordset.end(), display);
 	std::cout << std::endl;
-	la.remove(4);
-	std::cout << "After using the remove() method:\n";
-	std::cout << "la:\t";
-	std::for_each(la.begin(), la.end(), Show);
-	std::cout << std::endl;
-	std::list<int>::iterator last;
-	last = remove(lb.begin(), lb.end(), 4);
-	std::cout << "After using the remove() function:\n";
-	std::cout << "lb:\t";
-	std::for_each(lb.begin(), lb.end(), Show);
-	std::cout << std::endl;
-	lb.erase(last, lb.end());
-	std::cout << "After using the erase() method:\n";
-	std::cout << "lb:\t";
-	std::for_each(lb.begin(), lb.end(), Show);
-	std::cout << std::endl;
+	std::map<std::string, int> wordsmap;
+	std::set<std::string>::iterator si;
+	for (si = wordset.begin(); si != wordset.end(); ++si)
+		wordsmap[*si] = std::count(words.begin(), words.end(), *si);
+	std::cout << "\nWords frequency:\n";
+	for (si = wordset.begin(); si != wordset.end(); ++si)
+		std::cout << *si << ": " << wordsmap[*si] << std::endl;
 	return 0;
 }
 
-void Show(int v)
+std::string& ToLower(std::string& st)
 {
-	std::cout << v << " ";
+	std::transform(st.begin(), st.end(), st.begin(), toLower);
+	return st;
+}
+void display(const std::string& s)
+{
+	std::cout << s << " ";
 }
