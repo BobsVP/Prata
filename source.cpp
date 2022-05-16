@@ -1,26 +1,25 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
-#include<cstring>
 
 int main()  
 {
 	using std::cout;
-	using std::endl;
-	const char *state1 = "Florida";
-	const char *state2 = "Kansas";
-	const char *state3 = "Euphoria";
-	int len = std::strlen(state2);
-	cout << "Increasing loop index:\n";
-	int i;
-	for ( i = 1; i <= len; i++)
-	{
-		cout.write(state2, i);
-		cout << endl;
-	}
-	cout << "Decreasing loop index:\n";
-	for (i = len; i > 0; i--)
-		cout.write(state2, i) << endl;
-	cout << "Exceeding string length:\n";
-		cout.write(state2, len + 5) << endl;
+	cout << "12345678901234567890\n";
+	char ch = 'K';
+	int t = 273;
+	cout << ch << ":\n";
+	cout << t << ":\n";
+	cout << -t << ":\n";
+	double f1 = 1.200;
+	cout << f1 << ":\n";
+	cout << (f1 + 1.0 / 9.0) << ":\n";
+	double f2 = 1.67E2;
+	cout << f2 << ":\n";
+	f2 = 1.0 / 9.0;
+	cout << f2 << ":\n";
+	cout << (f2 * 1.0E4) << ":\n";
+	double f3 = 2.3E-4;
+	cout << f3 << ":\n";
+	cout << f3 / 10 << ":\n";
 	return 0;
 }
