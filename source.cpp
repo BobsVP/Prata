@@ -4,14 +4,12 @@
 int main()  
 {
 	using std::cout;
-	cout.fill('*');
-	const char* staff[2] = {"Waldo Whipsnade", "Wilmarie Wooper"};
-	long bonus[2] = {900, 1350};
-	for (int i = 0; i < 2; ++i)
-	{
-		cout << staff[i] << ": $";
-		cout.width(7);
-		cout << bonus[i] << "\n";
-	}
+	float price1 = 20.40;
+	float price2 = 1.9 + 8.0 / 9.0;
+	cout << "\"Furry Friends\" is $" << price1 << "!\n";
+	cout << "\"Fiery Friends\" is $" << price2 << "!\n";
+	cout.precision(2);
+	cout << "\"Furry Friends\" is $" << price1 << "!\n";
+	cout << "\"Fiery Friends\" is $" << price2 << "!\n";
 	return 0;
 }
