@@ -1,23 +1,44 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
+#include<cmath>
 
 int main()  
 {
-	using std::cout;
-	using std::ios_base;
-	using std::endl;
-	int temperature = 63;
-	cout << "Today's water temperature: ";
+	using namespace std;
+	cout.setf(ios_base::left, ios_base::adjustfield);
 	cout.setf(ios_base::showpos);
-	cout << temperature << endl;
-	cout << "For our programming friends, that's\n";
-	cout << std::hex << temperature << endl;
-	cout.setf(ios_base::uppercase);
-	cout.setf(ios_base::showbase);
-	cout << "or\n";
-	cout << temperature << endl;
-	cout << "How " << true << "! oops - How ";
-	cout.setf(ios_base::boolalpha);
-	cout << true << "!\n";
+	cout.setf(ios_base::showpoint);
+	cout.precision(3);
+	ios_base::fmtflags old = cout.setf(ios_base::scientific, ios_base::floatfield);
+	cout << "Left Justification:\n";
+	long n;
+	for ( n = 1; n <= 41; n += 10)
+	{
+		cout.width(4);
+		cout << n << "|";
+		cout.width(12);
+		cout << sqrt(double(n)) << "|\n";
+	}
+	cout.setf(ios_base::internal, ios_base::adjustfield);
+	cout.setf(old, ios_base::floatfield);
+	cout << "Internal Justification:\n";
+	for ( n = 1; n <= 41; n += 10)
+	{
+		cout.width(4);
+		cout << n << "|";
+		cout.width(12);
+		cout << sqrt(double(n)) << "|\n";
+	}
+	cout.setf(ios_base::right, ios_base::adjustfield);
+	cout.setf(ios_base::fixed, ios_base::floatfield);
+	cout << "Right Justification:\n";
+	for ( n = 1; n <= 41; n += 10)
+	{
+		cout.width(4);
+		cout << n << "|";
+		cout.width(12);
+		cout << sqrt(double(n)) << "|\n";
+	}
+
 	return 0;
 }
