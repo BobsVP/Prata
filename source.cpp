@@ -1,44 +1,20 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
+#include<iomanip>
 #include<cmath>
 
 int main()  
 {
 	using namespace std;
-	cout.setf(ios_base::left, ios_base::adjustfield);
-	cout.setf(ios_base::showpos);
-	cout.setf(ios_base::showpoint);
-	cout.precision(3);
-	ios_base::fmtflags old = cout.setf(ios_base::scientific, ios_base::floatfield);
-	cout << "Left Justification:\n";
-	long n;
-	for ( n = 1; n <= 41; n += 10)
+	cout << fixed << right;
+	cout << setw(6) << "N" << setw(14) << "square root" << setw(15) << "fourth root\n";
+	double root;
+	for (size_t n = 10; n <= 100; n += 10)
 	{
-		cout.width(4);
-		cout << n << "|";
-		cout.width(12);
-		cout << sqrt(double(n)) << "|\n";
+		root = sqrt(double(n));
+		cout << setw(6) << setfill('.') << n << setfill(' ') 
+			<< setw(12) << setprecision(3) << root
+			<< setw(14) << setprecision(4) << sqrt(root) << endl;
 	}
-	cout.setf(ios_base::internal, ios_base::adjustfield);
-	cout.setf(old, ios_base::floatfield);
-	cout << "Internal Justification:\n";
-	for ( n = 1; n <= 41; n += 10)
-	{
-		cout.width(4);
-		cout << n << "|";
-		cout.width(12);
-		cout << sqrt(double(n)) << "|\n";
-	}
-	cout.setf(ios_base::right, ios_base::adjustfield);
-	cout.setf(ios_base::fixed, ios_base::floatfield);
-	cout << "Right Justification:\n";
-	for ( n = 1; n <= 41; n += 10)
-	{
-		cout.width(4);
-		cout << n << "|";
-		cout.width(12);
-		cout << sqrt(double(n)) << "|\n";
-	}
-
 	return 0;
 }
