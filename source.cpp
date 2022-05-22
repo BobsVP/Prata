@@ -1,20 +1,17 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
-#include<iomanip>
-#include<cmath>
 
 int main()  
 {
 	using namespace std;
-	cout << fixed << right;
-	cout << setw(6) << "N" << setw(14) << "square root" << setw(15) << "fourth root\n";
-	double root;
-	for (size_t n = 10; n <= 100; n += 10)
+	cout << "Enter numbers: ";
+	int sum = 0;
+	int input;
+	while (cin >> input)
 	{
-		root = sqrt(double(n));
-		cout << setw(6) << setfill('.') << n << setfill(' ') 
-			<< setw(12) << setprecision(3) << root
-			<< setw(14) << setprecision(4) << sqrt(root) << endl;
+		sum += input;
 	}
+	cout << "Last value entered = " << input << endl;
+	cout << "Sum = " << sum << endl;
 	return 0;
 }
