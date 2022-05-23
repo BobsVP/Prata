@@ -1,27 +1,27 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
-#include<exception>
+const int Limit = 255;
 
 int main()  
 {
-	using namespace std;
-	cin.exceptions(ios_base::failbit);
-	cout << "Enter numbers: ";
-	int sum = 0;
-	int input;
-	try
-	{
-		while(cin >> input)
-		{
-			sum += input;
-		}
-	}
-	catch(ios_base::failure& bf)
-	{
-		std::cerr << bf.what() << '\n';
-		cout << "O! the horror!\n";
-	}
-	cout << "Last value entered = " << input << endl;
-	cout << "Sum = " << sum << endl;
+	using std::cout;
+	using std::cin;
+	using std::endl;
+	char input[Limit];
+	cout << "Enter a string for getline() processing:\n";
+	cin.getline(input, Limit, '#');
+	cout << "Here is your input:\n";
+	cout << input << "\nDone with phase 1\n";
+	char ch;
+	cin.get(ch);
+	cout << "The next input character is " << ch << endl;
+	if (ch != '\n')
+		cin.ignore(Limit, '\n');
+	cout << "Enter a string for get() processing:\n";
+	cin.get(input, Limit, '#');
+	cout << "Here is your input:\n";
+	cout << input << "\nDone with phase 2\n";
+	cin.get(ch);
+	cout << "The next input character is " << ch << endl;
 	return 0;
 }
