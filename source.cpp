@@ -1,27 +1,27 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
-
-const int SLEN = 10;
-
-inline void eatline() { while (std::cin.get() != '\n') continue;}
+#include<fstream>
+#include<string>
 
 int main()  
 {
-	using std::cout;
-	using std::cin;
-	using std::endl;
-	char name[SLEN];
-	char title[SLEN];
-	cout << "Enter you name: ";
-	cin.get(name, SLEN);
-	if (cin.peek() != '\n')
-		cout << "Sorry, we only have enough room for " << name << endl;
-	eatline();
-	cout << "Dear " << name << ", enter your title:\n";
-	cin.get(title, SLEN);
-	if (cin.peek() != '\n')
-		cout << "We were forced to truncate your title.\n";
-	eatline();
-	cout << "Name: " << name << "\nTitle: " << title << endl;
+	using namespace std;
+	string filename;
+	cout << "Enter name for new file: ";
+	cin >> filename;
+	ofstream fout(filename.c_str());
+	fout << "For your eyes only!\n";
+	cout << "Enter your secret number: ";
+	float secret;
+	cin >> secret;
+	fout << "Your secret number is " << secret << endl;
+	fout.close();
+	ifstream fin(filename.c_str());
+	cout << "Here are the contents of " << filename << ":\n";
+	char ch;
+	while (fin.get(ch))
+		cout << ch;
+	cout << "Done\n";
+	fin.close();
 	return 0;
 }
