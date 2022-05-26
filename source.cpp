@@ -1,45 +1,27 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
 
+const int SLEN = 10;
+
+inline void eatline() { while (std::cin.get() != '\n') continue;}
+
 int main()  
 {
 	using std::cout;
 	using std::cin;
 	using std::endl;
-	char ch;
-	while (cin.get(ch))
-	{
-		if (ch != '#')
-			cout << ch;
-		else
-		{
-			cin.putback(ch);
-			break;
-		}
-	}
-	if (!cin.eof())
-	{
-		cin.get(ch);
-		cout << endl << ch << " is next input character.\n ";
-	}
-	else
-	{
-		cout << "End of file reached.\n";
-		std::exit(0);
-	}
-	while (cin.peek() != '#')
-	{
-		cin.get(ch);
-		cout << ch;
-	}
-	if (!cin.eof())
-	{
-		cin.get(ch);
-		cout << endl << ch << " is next input character.\n ";
-	}
-	else
-	{
-		cout << "End of file reached.\n";
-	}
+	char name[SLEN];
+	char title[SLEN];
+	cout << "Enter you name: ";
+	cin.get(name, SLEN);
+	if (cin.peek() != '\n')
+		cout << "Sorry, we only have enough room for " << name << endl;
+	eatline();
+	cout << "Dear " << name << ", enter your title:\n";
+	cin.get(title, SLEN);
+	if (cin.peek() != '\n')
+		cout << "We were forced to truncate your title.\n";
+	eatline();
+	cout << "Name: " << name << "\nTitle: " << title << endl;
 	return 0;
 }
