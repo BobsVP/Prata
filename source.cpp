@@ -1,27 +1,37 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
 #include<fstream>
-#include<string>
+#include<cstdlib>
 
-int main()  
+int main(int argc, char* argv[])  
 {
 	using namespace std;
-	string filename;
-	cout << "Enter name for new file: ";
-	cin >> filename;
-	ofstream fout(filename.c_str());
-	fout << "For your eyes only!\n";
-	cout << "Enter your secret number: ";
-	float secret;
-	cin >> secret;
-	fout << "Your secret number is " << secret << endl;
-	fout.close();
-	ifstream fin(filename.c_str());
-	cout << "Here are the contents of " << filename << ":\n";
+	if(argc == 1)
+	{
+		cerr << "Usage: " << argv[0] << " filename[s]\n";
+		exit(EXIT_FAILURE);
+	}
+	ifstream fin;
+	long count;
+	long total = 0;
 	char ch;
-	while (fin.get(ch))
-		cout << ch;
-	cout << "Done\n";
-	fin.close();
+	for (int file = 1; file < argc; file++)
+	{
+		fin.open(argv[file]);
+		if (!fin.is_open())
+		{
+			cerr << "Could not open " << argv[file] << endl;
+			fin.clear();
+			continue;
+		}
+		count = 0;
+		while (fin.get(ch))
+			count++;
+		cout << count << " characters in " << argv[file] << endl;
+		total += count;
+		fin.clear();
+		fin.close();
+	}
+	cout << total << " characters in all files\n";
 	return 0;
 }
