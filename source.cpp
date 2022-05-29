@@ -1,37 +1,43 @@
 //#include</home/bobs/Prata/Header.h> 
 #include<iostream>
 #include<fstream>
+#include<string>
 #include<cstdlib>
 
-int main(int argc, char* argv[])  
+const char *file = "guests.txt" ;
+
+int main()  
 {
 	using namespace std;
-	if(argc == 1)
+	char ch;
+	ifstream fin;
+	fin.open(file);
+	if (fin.is_open())
 	{
-		cerr << "Usage: " << argv[0] << " filename[s]\n";
+		cout << "Here are the current contents of the " << file << " file:\n";
+		while (fin.get(ch))
+			cout << ch;
+		fin.close();		
+	}
+	ofstream fout(file, ios::out|ios::app);
+	if (!fout.is_open())
+	{
+		cerr << "Can't open " << file << " file for output.\n";
 		exit(EXIT_FAILURE);
 	}
-	ifstream fin;
-	long count;
-	long total = 0;
-	char ch;
-	for (int file = 1; file < argc; file++)
+	cout << "Enter guest name (enter a blanc line to quit):\n";
+	string name;
+	while (getline(cin, name) && name.size() > 0)
+		fout << name << endl;
+	//fin.clear();
+	fin.open(file);
+	if (fin.is_open())
 	{
-		fin.open(argv[file]);
-		if (!fin.is_open())
-		{
-			cerr << "Could not open " << argv[file] << endl;
-			fin.clear();
-			continue;
-		}
-		count = 0;
+		cout << "Here are the new contents of the " << file << " file:\n";
 		while (fin.get(ch))
-			count++;
-		cout << count << " characters in " << argv[file] << endl;
-		total += count;
-		fin.clear();
-		fin.close();
+			cout << ch;
+		fin.close();		
 	}
-	cout << total << " characters in all files\n";
+	cout << "Done.\n";
 	return 0;
 }
