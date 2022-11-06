@@ -1,5 +1,5 @@
 #include<iostream>
-using namespace std;
+#include<utility>
 
 class Useless
 {
@@ -16,6 +16,8 @@ public:
 	Useless(Useless&& f);
 	~Useless();
 	Useless operator+(const Useless& f) const;
+	Useless& operator=(const Useless& f);
+	Useless& operator=(Useless&& f);
 	void ShowData() const;
 };
 
@@ -26,99 +28,122 @@ Useless::Useless()
 	++ct;
 	n = 0;
 	pc = nullptr;
-	cout << "default constructor called; number of objects: " << ct << endl;
-	ShowObject();
 }
 
 Useless::Useless(int k) : n(k)
 {
 	++ct;
-	cout << "int constructor called; number of objects: " << ct << endl;
 	pc = new char[n];
-	ShowObject();
 }
 
 Useless::Useless(int k, char ch) : n(k)
 {
 	++ct;
-	cout << "int, char constructor called; number of objects: " << ct << endl;
 	pc = new char[n];
 	for (int i = 0; i < n; ++i)
 		pc[i] = ch;
-	ShowObject();
 }
 
 Useless::Useless(const Useless& f) : n(f.n)
 {
 	++ct;
-	cout << "copy const called; number of objects: " << ct << endl;
 	pc = new char[n];
 	for (int i = 0; i < n; ++i)
 		pc[i] = f.pc[i];
-	ShowObject();
 }
 
 Useless::Useless(Useless&& f) : n(f.n)
 {
 	++ct;
-	cout << "move constructor called; number of objects: " << ct << endl;
 	pc = f.pc;
 	f.pc = nullptr;
 	f.n = 0;
-	ShowObject();
 }
 
 Useless::~Useless()
 {
-	cout << "destructor called; objects left: " << --ct << endl;
-	cout << "deleted object: \n";
-	ShowObject();
 	delete[] pc;
+}
+
+Useless& Useless::operator=(const Useless& f)
+{
+	std::cout << "copy assignment operator called:\n";
+	if (this == &f)
+		return *this;
+	delete[] pc;
+	n = f.n;
+	pc = new char[n];
+	for (int i = 0; i < n; ++i)
+		pc[i] = f.pc[i];
+	return *this;
+}
+
+Useless& Useless::operator=(Useless&& f)
+{
+	std::cout << "move assignment operator called:\n";
+	if (this == &f)
+		return *this;
+	delete[] pc;
+	n = f.n;
+	pc = f.pc;
+	f.n = 0;
+	f.pc = nullptr;
+	return *this;
 }
 
 Useless Useless::operator+(const Useless& f) const
 {
-	cout << "entering operator+()\n";
 	Useless temp = Useless(n + f.n);
 	for (int i = 0; i < n; ++i)
 		temp.pc[i] = pc[i];
 	for (int i = n; i < temp.n; ++i)
 		temp.pc[i] = f.pc[i - n];
-	cout << "temp object:\n";
-	cout << "Leaving operator+()\n";
 	return temp;
 }
 
+
 void Useless::ShowObject() const
 {
-	cout << "Number of elements: " << n;
-	cout << " Data adress: " << (void*)pc << endl;
+	std::cout << "Number of elements: " << n;
+	std::cout << " Data adress: " << (void*)pc << std::endl;
 }
 
 void Useless::ShowData() const
 {
 	if (n == 0)
-		cout << "(object empty)";
+		std::cout << "(object empty)";
 	else
 		for (int i = 0; i < n; ++i)
-			cout << pc[i];
-	cout << endl;
+			std::cout << pc[i];
+	std::cout << std::endl;
 }
 
 int main()
 {
+	using std::cout;
 	{
 		Useless one(10, 'x');
-		Useless two = one;
-		Useless three(20, 'o');
-		Useless four(one + three);
+		Useless two = one + one;
 		cout << "object one: ";
 		one.ShowData();
 		cout << "object two: ";
 		two.ShowData();
-		cout << "object three: ";
+		Useless three, four;
+		cout << "three = one\n";
+		three = one;
+		cout << "new object three = ";
 		three.ShowData();
-		cout << "object four: ";
+		cout << "and object one = ";
+		one.ShowData();
+		cout << "four = one + two\n";
+		four = one + two;
+		cout << "new object four = ";
 		four.ShowData();
+		cout << "four = move(one)\n";
+		four = std::move(one);
+		cout << "new object four = ";
+		four.ShowData();
+		cout << "and object one = ";
+		one.ShowData();
 	}
 }
