@@ -1,57 +1,31 @@
 #ifndef Header_h
 #define Header_h
 
-#include<stdexcept>
-#include<string>
+#include<iostream>
 
-class Sales
+template <typename T, typename F>
+T use_f(T v, F f)
 {
-public:
-    enum{MONTHS = 12};
-    class bad_index : public std::logic_error
-    {
-    private:
-        int bi;
-    public:
-        explicit bad_index(int ix, const std::string& s = "Index error in Sales Object\n");
-        int bi_val() const {return bi;}
-        virtual ~bad_index() throw() {};
-    };
-    explicit Sales(int yy = 0);
-    Sales(int yy, const double* gr, int n);
-    virtual ~Sales() {}
-    int Year() const {return year;}
-    virtual double operator[](int i) const;
-    virtual double& operator[](int i);
-private:
-    int year;
-    double gross[MONTHS];
-};
-
-class LabeledSales : public Sales
+	static int count = 0;
+	++count;
+	std::cout << " use_f count = " << count << ", &count = " << &count << std::endl;
+	return f(v);
+}
+class Fp
 {
-public:
-    class nbad_index : public Sales::bad_index
-    {
-    private:
-        std::string lbl;
-    public:
-        nbad_index(const std::string& lb, int ix,
-        const std::string& s = "Index error in LabeledSales object");
-        const std::string& label_val() const {return lbl;}
-        virtual ~nbad_index() throw() {}
-    };
-    explicit LabeledSales(const std::string& lb = "none", int yy = 0);
-    LabeledSales(const std::string& lb, int yy, const double* gr, int n);
-    virtual ~LabeledSales() {}
-    const std::string& Label() const {return label;}
-    virtual double operator[](int i) const;
-    virtual double& operator[](int i);
 private:
-    std::string label;
-
+	double z_;
+public:
+	Fp(double z = 1.0) : z_(z) {}
+	double operator()(double p) { return z_ * p; }
 };
-
-
+class Fq
+{
+private:
+	double z_;
+public:
+	Fq(double z = 1.0) : z_(z) {}
+	double operator()(double q) { return z_ + q; }
+};
 
 #endif

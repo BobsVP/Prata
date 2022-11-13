@@ -1,26 +1,25 @@
+#include<C:\Users\Bobs\source\repos\BobsVP\Prata\Header.h>
 #include<iostream>
-#include<vector>
-#include<algorithm>
-#include<cmath>
-#include<ctime>
 
-const long Size = 390000L;
+double dub(double x) { return 2 * x; }
+double square(double x) { return x * x; }
 
 int main()
 {
 	using std::cout;
-	std::vector<int> numbers(Size);
-	std::srand(std::time(0));
-	std::generate(numbers.begin(), numbers.end(), std::rand);
-	cout << "Sample size = " << Size << '\n';
-	int count3 = std::count_if(numbers.begin(), numbers.end(), [](int x) {return x % 3 == 0; });
-	cout << "Counts of numbers divisible by 3: " << count3 << '\n';
-	int count13 = 0;
-	std::for_each(numbers.begin(), numbers.end(), [&count13](int x) {count13 += x % 13 == 0; });
-	cout << "Counts of numbers divisible by 13: " << count13 << '\n';
-	count3 = count13 = 0;
-	std::for_each(numbers.begin(), numbers.end(), [&](int x) {count3 += x % 3 == 0; count13 += x % 13 == 0; });
-	cout << "Counts of numbers divisible by 3: " << count3 << '\n';
-	cout << "Counts of numbers divisible by 13: " << count13 << '\n';
+	using std::endl;
+	double y = 1.21;
+	cout << "Function pointer dub:\n";
+	cout << " " << use_f(y, dub) << endl;
+	cout << "Function pointer square:\n";
+	cout << " " << use_f(y, square) << endl;
+	cout << "Function object Fp:\n";
+	cout << " " << use_f(y, Fp(5.0)) << endl;
+	cout << "Function object Fq:\n";
+	cout << " " << use_f(y, Fq(5.0)) << endl;
+	cout << "Lambda expression 1:\n";
+	cout << " " << use_f(y, [](double u) { return u * u; }) << endl;
+	cout << "Lambda expression 2:\n";
+	cout << " " << use_f(y, [](double u) { return u + u / 2.0; }) << endl;
 	return 0;
 }
