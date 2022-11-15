@@ -1,33 +1,21 @@
-#include<Header.h>
 #include<iostream>
-#include<functional>
+#include<string>
 
-double dub(double x) { return 2 * x; }
-double square(double x) { return x * x; }
+void show_list3() {}
+
+template<typename T, typename... Args>
+void show_list3(T value, Args... args) 
+{
+	std::cout << value << ", ";
+	show_list3(args...);
+}
 
 int main()
 {
-	using std::cout;
-	using std::endl;
-	using std::function;
-	double y = 1.21;
-	function<double(double)> ef1 = dub;
-	function<double(double)> ef2 = square;
-	function<double(double)> ef3 = Fq(10.0);
-	function<double(double)> ef4 = Fp(10.0);
-	function<double(double)> ef5 = [](double u) { return u * u; };
-	function<double(double)> ef6 = [](double u) { return u + u / 2.0; };
-	cout << "Function pointer dub:\n";
-	cout << " " << use_f(y, ef1) << endl;
-	cout << "Function pointer dub:\n";
-	cout << " " << use_f(y, ef2) << endl;
-	cout << "Function pointer dub:\n";
-	cout << " " << use_f(y, ef3) << endl;
-	cout << "Function pointer dub:\n";
-	cout << " " << use_f(y, ef4) << endl;
-	cout << "Function pointer dub:\n";
-	cout << " " << use_f(y, ef5) << endl;
-	cout << "Function pointer dub:\n";
-	cout << " " << use_f(y, ef6) << endl;
+	int n = 14;
+	double x = 2.71828;
+	std::string mr = "Mr. String objects!";
+	show_list3(n, x);
+	show_list3(x * x, '!', 7, mr);
 	return 0;
 }
