@@ -1,27 +1,18 @@
 #include<iostream>
 #include<string>
-
-void show_list() {}
-
-template<typename T>
-void show_list(T value)
-{
-	std::cout << value << '\n';
-}
-
-template<typename T, typename... Args>
-void show_list(T value, Args... args)
-{
-	std::cout << value << ", ";
-	show_list(args...);
-}
+#include"boost\lexical_cast.hpp"
 
 int main()
 {
-	int n = 14;
-	double x = 2.71828;
-	std::string mr = "Mr. String objects!";
-	show_list(n, x);
-	show_list(x * x, '!', 7, mr);
+	using namespace std;
+	cout << "Enter your weight: ";
+	float weight;
+	cin >> weight;
+	string gain = "A 10% increase reises ";
+	string wt = boost::lexical_cast<string>(weight);
+	gain = gain + wt + " to ";
+	weight = 1.1 * weight;
+	gain = gain + boost::lexical_cast<string>(weight) + ".";
+	cout << gain << endl;
 	return 0;
 }
